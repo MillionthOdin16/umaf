@@ -4,7 +4,7 @@
 The **Universal Model Adapter Fusion (UMAF)** project is an experimental framework designed to explore capability transfer and integration across large language models (LLMs) with varying architectures and scales. The aim is to develop a method for extracting and adapting specialized capabilities—such as reasoning or sentiment analysis—from source models to enhance a target model efficiently, using lightweight adapters instead of full retraining. This repository represents an initial exploration of a modular, scalable, and interpretable system, with ongoing work to expand its components.
 
 ### Purpose
-UMAF investigates the feasibility of combining diverse model strengths into a unified framework. It focuses on laying the groundwork for capability extraction and transfer, providing a starting point for future research and practical applications in AI model adaptation. The current implementation includes only the **Capability Extractor**, with additional components planned for later development.
+UMAF investigates the feasibility of combining diverse model strengths into a unified framework. It focuses on laying the groundwork for capability extraction and transfer, providing a starting point for future research and practical applications in AI model adaptation. The current implementation includes only the **Capability Extractor**, with additional components planned for later development. For a detailed overview of the full framework, see the [Full Framework Specification](UMAF_Framework_Specification.md).
 
 ## Framework Visualization
 
