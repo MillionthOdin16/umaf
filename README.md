@@ -1,12 +1,61 @@
-# Universal Model Adapter Fusion (UMAF)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Universal Model Adapter Fusion (UMAF) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Overview
 The **Universal Model Adapter Fusion (UMAF)** project is an experimental framework designed to explore capability transfer and integration across large language models (LLMs) with varying architectures and scales. The aim is to develop a method for extracting and adapting specialized capabilities—such as reasoning or sentiment analysis—from source models to enhance a target model efficiently, using lightweight adapters instead of full retraining. This repository represents an initial exploration of a modular, scalable, and interpretable system, with ongoing work to expand its components.
 
 ### Purpose
 UMAF investigates the feasibility of combining diverse model strengths into a unified framework. It focuses on laying the groundwork for capability extraction and transfer, providing a starting point for future research and practical applications in AI model adaptation. The current implementation includes only the **Capability Extractor**, with additional components planned for later development.
+
+## Framework Visualization
+
+```plaintext
++-------------------------+       +-------------------------+
+| Source Model(s)         |       | Target Model            |
+| (e.g., BERT, LLaMA)     |       | (e.g., BERT)            |
++-------------------------+       +-------------------------+
+          |                            |
+          | Activations                |
+          v                            |
++-------------------------+            |
+| Capability Extractor    |            |
+| - Input Processor       |            |
+| - Transformer Encoder   |            |
+| - Projection Head       |            |
+| - Similarity Computation|            |
+| Output: Fingerprint     |            |
++-------------------------+            |
+          |                            |
+          | 512D Fingerprint           |
+          v                            |
++-------------------------+            |
+| Size Interpolator       |            |
+| (Planned)               |            |
+| - Adjusts for scale     |            |
++-------------------------+            |
+          |                            |
+          | Adjusted Fingerprint       |
+          v                            |
++-------------------------+            |
+| Latent Fusion Module    |            |
+| (Planned)               |            |
+| - Combines fingerprints |            |
++-------------------------+            |
+          |                            |
+          | Fused Fingerprint          |
+          v                            |
++-------------------------+            |
+| Adapter Generator       |            |
+| (Planned)               |            |
+| - Creates LoRA adapters |            |
++-------------------------+            |
+          |                            |
+          | LoRA Adapter               |
+          v                            v
++-------------------------+       +-------------------------+
+|                         |       | Enhanced Target Model   |
+|                         |<------+ - Applies adapter       |
++-------------------------+       +-------------------------+
+```
 
 ## Capability Extractor
 The **Capability Extractor** is the initial component of UMAF, developed to process model activations and produce a 512-dimensional capability fingerprint. This fingerprint is intended to represent a model’s functional strengths in a way that is independent of its architecture, serving as a foundation for capability comparison and transfer experiments.
