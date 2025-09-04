@@ -4,12 +4,13 @@ Monitoring module for the UMAF Capability Extractor.
 This module provides monitoring and logging functionality for the capability extractor.
 """
 
-from typing import Dict, Any, List, Optional, Union
+from typing import Dict, Any, List, Optional, Union, Callable
 import time
 import json
 import os
 from pathlib import Path
 import numpy as np
+import torch
 
 
 class CapabilityExtractionMonitor:

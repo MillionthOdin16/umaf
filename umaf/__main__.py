@@ -9,10 +9,10 @@ import os
 import torch
 from transformers import AutoModel, AutoTokenizer
 
-from umaf.config import CapabilityExtractorConfig
-from umaf.extractor import CapabilityExtractor
-from umaf.metrics import CosineSimilarity, KLDivergenceSimilarity, PearsonCorrelation
-from umaf.utils import set_seed, visualize_fingerprints, compute_model_similarity_matrix, save_config
+from .config import CapabilityExtractorConfig
+from .extractor import CapabilityExtractor
+from .metrics import CosineSimilarity, KLDivergenceSimilarity, PearsonCorrelation
+from .utils import set_seed, visualize_fingerprints, compute_model_similarity_matrix, save_config
 
 
 def parse_args():

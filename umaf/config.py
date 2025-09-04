@@ -7,7 +7,7 @@ This module defines the configuration classes and options for the UMAF framework
 from dataclasses import dataclass, field
 from typing import Optional, Dict, Any, Type
 
-from umaf.metrics import SimilarityMetric, CosineSimilarity
+from .metrics import SimilarityMetric, CosineSimilarity
 
 
 @dataclass

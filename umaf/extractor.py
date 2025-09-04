@@ -11,9 +11,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from umaf.config import CapabilityExtractorConfig
-from umaf.processor import InputProcessor
-from umaf.metrics import SimilarityMetric
+from .config import CapabilityExtractorConfig
+from .processor import InputProcessor
+from .metrics import SimilarityMetric
 
 
 class TransformerEncoder(nn.Module):
@@ -167,8 +167,34 @@ class CapabilityExtractor(nn.Module):
         # Process input
         processed_activations = self.input_processor.process(activations)
         
+        # Adjust attention mask to match processed sequence length
+        adjusted_attention_mask = attention_mask
+        if attention_mask is not None:
+            # Get the original sequence length
+            orig_seq_len = attention_mask.shape[1]
+            # Get the processed sequence length
+            processed_seq_len = processed_activations.shape[1]
+            
+            if processed_seq_len > orig_seq_len:
+                # Pad the attention mask with zeros (for padding tokens)
+                batch_size = attention_mask.shape[0]
+                padding = torch.zeros(
+                    batch_size, processed_seq_len - orig_seq_len,
+                    dtype=attention_mask.dtype,
+                    device=attention_mask.device
+                )
+                adjusted_attention_mask = torch.cat([attention_mask, padding], dim=1)
+            elif processed_seq_len < orig_seq_len:
+                # Truncate the attention mask
+                adjusted_attention_mask = attention_mask[:, :processed_seq_len]
+        
         # Encode activations
-        encoded = self.encoder(processed_activations, mask=attention_mask)
+        # Convert attention mask for transformer (True = ignore, False = attend)
+        transformer_mask = None
+        if adjusted_attention_mask is not None:
+            transformer_mask = (adjusted_attention_mask == 0)  # Invert: 0 -> True (ignore), 1 -> False (attend)
+        
+        encoded = self.encoder(processed_activations, mask=transformer_mask)
         
         # Pool encoded activations
         if self.adaptive_pooling:
