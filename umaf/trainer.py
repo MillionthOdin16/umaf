@@ -12,10 +12,10 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-from umaf.extractor import CapabilityExtractor
-from umaf.dataset import CapabilityDataset
-from umaf.loss import info_nce_loss, AdvancedInfoNCELoss
-from umaf.monitor import CapabilityExtractionMonitor
+from .extractor import CapabilityExtractor
+from .dataset import CapabilityDataset
+from .loss import info_nce_loss, AdvancedInfoNCELoss
+from .monitor import CapabilityExtractionMonitor
 
 
 class CapabilityExtractorTrainer:
